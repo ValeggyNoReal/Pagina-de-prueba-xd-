@@ -10,45 +10,42 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #fff8c7;
             text-align: center;
-            color: #333;
+            background: #fff4a8;
         }
 
         h1 {
-            font-size: 40px;
             margin-top: 30px;
-        }
-
-        .historia {
-            max-width: 700px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px #ccc;
-            font-size: 18px;
+            color: #d99b00;
         }
 
         #puntos {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
-            margin: 30px;
+            margin: 20px;
         }
 
+        /* La imagen de la manzana */
         #manzana {
-            width: 300px;
+            width: 250px;
             cursor: pointer;
             user-select: none;
-            transition: transform 0.08s;
+
+            /* Animación suave */
+            transition: transform 0.15s;
         }
 
+        /* Animación mientras haces clic */
         #manzana:active {
-            transform: scale(0.9);
+            transform: scale(0.75) rotate(15deg);
         }
 
-        .instruccion {
-            font-size: 20px;
+        #historia {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -57,22 +54,11 @@
 
     <h1>🍎 Manzana Amarilla con Salsa</h1>
 
-    <div class="historia">
-        <h2>📖 Historia</h2>
-
-        <p>
-            Una manzana amarilla con piernas volaba, hacía volteretas y lanzaba rayos X asi bien chidote y encontro una salsa de otro planeta y se la tiro encima y asi xd.
-        </p>
-    </div>
-
     <div id="puntos">
         Puntos: <span id="contador">0</span>
     </div>
 
-    <p class="instruccion">
-        clickea la manzana xd 🍎
-    </p>
-
+    <!-- AQUÍ APARECE TU IMAGEN -->
     <img
         id="manzana"
         src="manzana.png"
@@ -80,11 +66,21 @@
         onclick="darPunto()"
     >
 
+    <div id="historia">
+        <h2>📖 La historia</h2>
+
+        <p>
+            Una manzana con piernas vuela, hace volteretas y usa rayos X
+            mientras busca aventuras entre las nubes.
+        </p>
+    </div>
+
     <script>
         let puntos = 0;
 
         function darPunto() {
             puntos++;
+
             document.getElementById("contador").textContent = puntos;
         }
     </script>
