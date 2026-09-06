@@ -1,89 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manzana Amarilla con Salsa</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <title>Manzana Amarilla con Salsa</title>
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+      background: linear-gradient(135deg, #ffe259, #ffa751);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      user-select: none;
+      overflow: hidden;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #fff4a8;
-        }
+    h1 {
+      color: #d32f2f;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 0px #fff;
+      margin-bottom: 10px;
+    }
 
-        h1 {
-            margin-top: 30px;
-            color: #d99b00;
-        }
+    .story {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 12px 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
-        #puntos {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 20px;
-        }
+    .counter {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2e7d32;
+      background-color: #ffffff;
+      padding: 10px 25px;
+      border-radius: 50px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      margin-bottom: 25px;
+    }
 
-        /* La imagen de la manzana */
-        #manzana {
-            width: 250px;
-            cursor: pointer;
-            user-select: none;
+    .apple-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
 
-            /* Animación suave */
-            transition: transform 0.15s;
-        }
+    .apple {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      -webkit-user-drag: none;
+    }
 
-        /* Animación mientras haces clic */
-        #manzana:active {
-            transform: scale(0.75) rotate(15deg);
-        }
+    .apple.clicked {
+      transform: scale(0.85) rotate(-12deg);
+    }
 
-        #historia {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-        }
-    </style>
+    .error-msg {
+      width: 220px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff3cd;
+      color: #856404;
+      border: 3px dashed #ffeeba;
+      border-radius: 20px;
+      padding: 15px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .plus-one {
+      position: absolute;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #d32f2f;
+      pointer-events: none;
+      animation: floatUp 0.8s ease-out forwards;
+      text-shadow: 1px 1px 0px #fff;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.3);
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-    <h1>🍎 Manzana Amarilla con Salsa</h1>
+  <h1>Manzana Amarilla con Salsa</h1>
 
-    <div id="puntos">
-        Puntos: <span id="contador">0</span>
+  <p class="story">
+    Una manzana amarilla con piernas vuela alto, hace volteretas en el aire y usa sus rayos X para buscar salsa.
+  </p>
+
+  <div class="counter">Puntos: <span id="score">0</span></div>
+
+  <div class="apple-container" id="appleContainer">
+    <img src="manzana.png" alt="Manzana Amarilla" id="apple" class="apple" onerror="showError()">
+    <div id="errorBox" class="error-msg" style="display: none;">
+      Coloca "manzana.png" en la misma carpeta
     </div>
+  </div>
 
-    <!-- AQUÍ APARECE TU IMAGEN -->
-    <img
-        id="manzana"
-        src="manzana.png"
-        alt="Manzana amarilla"
-        onclick="darPunto()"
-    >
+  <script>
+    let score = 0;
+    const scoreElement = document.getElementById('score');
+    const apple = document.getElementById('apple');
+    const appleContainer = document.getElementById('appleContainer');
+    const errorBox = document.getElementById('errorBox');
 
-    <div id="historia">
-        <h2>📖 La historia</h2>
+    function showError() {
+      apple.style.display = 'none';
+      errorBox.style.display = 'flex';
+    }
 
-        <p>
-            Una manzana con piernas vuela, hace volteretas y usa rayos X
-            mientras busca aventuras entre las nubes.
-        </p>
-    </div>
+    appleContainer.addEventListener('click', (e) => {
+      // Incrementar contador
+      score++;
+      scoreElement.textContent = score;
 
-    <script>
-        let puntos = 0;
+      // Animar la manzana
+      if (apple.style.display !== 'none') {
+        apple.classList.add('clicked');
+        setTimeout(() => {
+          apple.classList.remove('clicked');
+        }, 150);
+      }
 
-        function darPunto() {
-            puntos++;
+      // Crear el "+1" animado en la posición del clic
+      const rect = appleContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-            document.getElementById("contador").textContent = puntos;
-        }
-    </script>
+      const plusOne = document.createElement('div');
+      plusOne.classList.add('plus-one');
+      plusOne.textContent = '+1';
+      plusOne.style.left = `${x}px`;
+      plusOne.style.top = `${y}px`;
+
+      appleContainer.appendChild(plusOne);
+
+      setTimeout(() => {
+        plusOne.remove();
+      }, 800);
+    });
+  </script>
 
 </body>
 </html>
