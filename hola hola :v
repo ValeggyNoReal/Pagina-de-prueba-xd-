@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manzana Amarilla con Salsa</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff8c7;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-top: 30px;
+        }
+
+        .historia {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px #ccc;
+            font-size: 18px;
+        }
+
+        #puntos {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 30px;
+        }
+
+        #manzana {
+            width: 300px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.08s;
+        }
+
+        #manzana:active {
+            transform: scale(0.9);
+        }
+
+        .instruccion {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🍎 Manzana Amarilla con Salsa</h1>
+
+    <div class="historia">
+        <h2>📖 Historia</h2>
+
+        <p>
+            Una manzana amarilla con piernas volaba, hacía volteretas y lanzaba rayos X asi bien chidote y encontro una salsa de otro planeta y se la tiro encima y asi xd.
+        </p>
+    </div>
+
+    <div id="puntos">
+        Puntos: <span id="contador">0</span>
+    </div>
+
+    <p class="instruccion">
+        clickea la manzana xd 🍎
+    </p>
+
+    <img
+        id="manzana"
+        src="manzana.png"
+        alt="Manzana amarilla"
+        onclick="darPunto()"
+    >
+
+    <script>
+        let puntos = 0;
+
+        function darPunto() {
+            puntos++;
+            document.getElementById("contador").textContent = puntos;
+        }
+    </script>
+
+</body>
+</html>
